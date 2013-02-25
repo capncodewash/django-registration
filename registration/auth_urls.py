@@ -23,7 +23,7 @@ consult a specific backend's documentation for details.
 
 """
 
-from django.conf.urls.defaults import *
+from django.conf.urls import patterns, url
 
 from django.contrib.auth import views as auth_views
 
@@ -55,4 +55,4 @@ urlpatterns = patterns('',
                        url(r'^password/reset/done/$',
                            auth_views.password_reset_done,
                            name='auth_password_reset_done'),
-)
+                       )
