@@ -1,6 +1,4 @@
-========================
-Django user registration
-========================
+## Django user registration with django 1.5 support
 
 This is a fairly simple user-registration application for Django_,
 designed to make allowing user signups as painless as possible. It
