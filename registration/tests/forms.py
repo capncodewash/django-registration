@@ -1,4 +1,9 @@
-from django.contrib.auth.models import User
+try:
+    from django.contrib.auth import get_user_model
+except ImportError:  # django < 1.5
+    from django.contrib.auth.models import User
+else:
+    User = get_user_model()User
 from django.test import TestCase
 
 from registration import forms
@@ -25,20 +30,20 @@ class RegistrationFormTests(TestCase):
                       'email': 'foo@example.com',
                       'password1': 'foo',
                       'password2': 'foo'},
-            'error': ('username', [u"This value must contain only letters, numbers and underscores."])},
+             'error': ('username', [u"This value must contain only letters, numbers and underscores."])},
             # Already-existing username.
             {'data': {'username': 'alice',
                       'email': 'alice@example.com',
                       'password1': 'secret',
                       'password2': 'secret'},
-            'error': ('username', [u"A user with that username already exists."])},
+             'error': ('username', [u"A user with that username already exists."])},
             # Mismatched passwords.
             {'data': {'username': 'foo',
                       'email': 'foo@example.com',
                       'password1': 'foo',
                       'password2': 'bar'},
-            'error': ('__all__', [u"The two password fields didn't match."])},
-            ]
+             'error': ('__all__', [u"The two password fields didn't match."])},
+        ]
 
         for invalid_dict in invalid_data_dicts:
             form = forms.RegistrationForm(data=invalid_dict['data'])
